@@ -276,7 +276,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 704fbffaeb4cca44fb75555e75858c34, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -345,6 +345,8 @@ MonoBehaviour:
   pause: {fileID: -8180149988448338850, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   shootClip: {fileID: 8300000, guid: 56a1e502a2fc0e04ba87b44288d2cc9a, type: 3}
   dashClip: {fileID: 8300000, guid: 67b254a010d0eb140af28b19b548d18d, type: 3}
+  minPitch: 0.9
+  maxPitch: 1.1
 --- !u!114 &2450407349542409742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +380,8 @@ MonoBehaviour:
   maxHealth: 3
   hitClip: {fileID: 8300000, guid: f8de7c9af8f88794d9882b27ca8ffdd0, type: 3}
   deathClip: {fileID: 8300000, guid: dec0e5a142004144a97c72d384c8bad6, type: 3}
+  minPitch: 0.9
+  maxPitch: 1.1
   OnHealthChange:
     m_PersistentCalls:
       m_Calls: []

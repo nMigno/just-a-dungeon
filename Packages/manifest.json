@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.antonysze.custom-play-button": "file:C:/Users/nickm/Downloads/unity-custom-play-button-main/unity-custom-play-button-main",
+    "com.marijnzwemmer.unity-toolbar-extender": "https://github.com/marijnz/unity-toolbar-extender.git",
+    "com.unity.ai.navigation": "2.0.9",
     "com.unity.cinemachine": "3.1.5",
     "com.unity.collab-proxy": "2.9.3",
     "com.unity.feature.2d": "2.0.1",

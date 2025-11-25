@@ -4,14 +4,15 @@ public class PlayerStats : MonoBehaviour
 {
     [Header("Movement Stats")]
     [SerializeField] private float moveSpeed = 6.0f;
-    [SerializeField] private float movePenalization = 0.5f;
+    [SerializeField] private float movePenalization = 0.2f;
+    [SerializeField] private float movePenalizationDuration = 0.5f;
 
     [Header("Attack Stats")]
     [SerializeField] private float shootSpeed = 10.0f;
     [SerializeField] private float shootCooldown = 0.8f;
     [SerializeField] private Vector2 bulletSize = new(1f, 1f);
     [Tooltip("In seconds")]
-    [SerializeField] private float attackPenalization = 0.5f;
+    [SerializeField] private float attackPenalization = 0.1f;
 
     [Header("Dash Stats")]
     [SerializeField] private float dashCooldown = 2.5f;
@@ -26,6 +27,7 @@ public class PlayerStats : MonoBehaviour
     // Public stats
     public float MoveSpeed { get; private set; }
     public float MovePenalization { get; private set; }
+    public float MovePenalizationDuration { get; private set; }
 
     public float ShootSpeed { get; private set; }
     public float ShootCooldown { get; private set; }
@@ -43,7 +45,8 @@ public class PlayerStats : MonoBehaviour
         DashDuration = dashDuration;
         DashVelocity = dashVelocity;
         AttackPenalization = attackPenalization;
-        
+        MovePenalizationDuration = movePenalizationDuration;
+                
         GetActualStats(GameManager.Instance.playerStats);
     }
 

@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 
 public enum GameInputMap { UI, Gameplay }
 
-// [RequireComponent(typeof(AudioManager))] Create and add AudioManager.cs
 // Navigation System -- input system -- llevar track de la navegación del previo botón activo -- botón de salida a la derecha
 [RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    // public AudioManager Audio {  get; private set; }
 
     [Header("Scene Indexes")]
     [SerializeField] private int splashScreenIndex = 1;
@@ -165,6 +163,11 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"Current Index = {currentSceneIndex}");
         }
+    }
+
+    public int GetCurrentLevelIndex()
+    {
+        return currentSceneIndex;
     }
 
     public void QuitGame()

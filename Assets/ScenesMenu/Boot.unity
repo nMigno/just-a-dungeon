@@ -236,7 +236,7 @@ MonoBehaviour:
   creditsIndex: 3
   firstLevelIndex: 4
   lastLevelIndex: 23
-  devInitialLevel: 10
+  devInitialLevel: -1
   uiActionMap: UI
   gameplayActionMap: Gameplay
   splashActionMap: Splash
@@ -284,12 +284,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0f985e139211c4084bb542241b90a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 6
   movePenalization: 0.5
+  movePenalizationDuration: 0.5
   shootSpeed: 10
   shootCooldown: 0.8
   bulletSize: {x: 1, y: 1}
-  attackPenalization: 1
+  attackPenalization: 0.5
   dashCooldown: 2.5
   dashDuration: 0.3
   dashVelocity: 20

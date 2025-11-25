@@ -1,18 +1,13 @@
-using Pathfinding;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(EnemyHpManager))]
-[RequireComponent(typeof(AIDestinationSetter))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private string playerTag = "Player";
-
     [Header("Events")]
     [SerializeField] private string isHit = "Is Hit";
-    [SerializeField] private string facing = "Facing";
 
     [Header("Stats")]
     [SerializeField] private int enemyDamage;
@@ -28,21 +23,19 @@ public class Enemy : MonoBehaviour
     private bool isDying = false;
     private EnemyHpManager hpManager;
     private Rigidbody2D body;
-    private AIPath path;
+    private NavMeshAgent agent;
     private Animator animator;
     private AudioSource audioSource;
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
-        path = GetComponent<AIPath>();
         animator = GetComponent<Animator>();
         hpManager = GetComponent<EnemyHpManager>();
         audioSource = GetComponent<AudioSource>();
+        agent = GetComponent<NavMeshAgent>();
 
-        hpManager.onDeath.AddListener(StartDeathSequence);
-
-        GetComponent<AIDestinationSetter>().target = GameObject.FindGameObjectWithTag(playerTag).GetComponent<Transform>();
+        hpManager.onDeath.AddListener(StartDeathSequence);     
     }
 
     void OnDestroy()
@@ -50,24 +43,16 @@ public class Enemy : MonoBehaviour
         hpManager.onDeath.RemoveListener(StartDeathSequence);
     }
 
-    void Update()
-    {
-        if (path.canMove)
-        {
-            animator.SetFloat(facing, path.desiredVelocity.x);
-        }
-    }
-
     void StartDeathSequence()
     {
         if (isDying) return;
         isDying = true;
         // Everything below is for reproducing dead sound while mob is dying.
-        path.canMove = false;
+        agent.isStopped = true;
         body.linearVelocity = Vector2.zero;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
-        path.enabled = false;
+        agent.enabled = false;
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.PlayOneShot(deathClip, 1.5f);
 
@@ -90,7 +75,7 @@ public class Enemy : MonoBehaviour
         if (isDying) return;
 
         body.linearVelocity = Vector2.zero;
-        path.canMove = true;
+        agent.isStopped = false;
     }
 
     public void DestroyEnemy()

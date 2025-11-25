@@ -43,11 +43,15 @@ public class PlayerController : MonoBehaviour
     private MageHitVFX mageHitVFX;
     private Wand weapon;
     private AudioSource audioSource;
+    private PlayerStats stats;
 
     private bool dashing = false;
     private bool attacking = false;
+    private bool isSlowed = false;
 
     private Coroutine cancelAttackCoroutineId;
+    private Coroutine resetSpeedCoroutineId;
+
     private Vector2 latestLinearVelocity;
 
     void Awake()
@@ -57,6 +61,26 @@ public class PlayerController : MonoBehaviour
         mageHitVFX = GetComponent<MageHitVFX>();
         weapon = GetComponentInChildren<Wand>();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    void Start()
+    {
+        stats = GameManager.Instance.playerStats;
+    }
+
+    void FixedUpdate()
+    {
+        if (dashing || !enabled) return;
+
+        Vector2 currentVelocity = playerInput;
+
+        if (isSlowed)
+        {
+            currentVelocity *= stats.MovePenalization;
+        }
+
+        body.linearVelocity = stats.MoveSpeed * currentVelocity;
+        latestLinearVelocity = body.linearVelocity;
     }
 
     void OnEnable()
@@ -136,13 +160,11 @@ public class PlayerController : MonoBehaviour
 
     void OnCancelMove(InputAction.CallbackContext context)
     {
-        if (dashing)
-        {
-            playerInput = new(0f, 0f);
-            return;
-        }
+        playerInput = Vector2.zero;
 
-        body.linearVelocity = new(0f, 0f);
+        if (dashing) return;
+
+        body.linearVelocity = Vector2.zero;
         animator.SetBool(running, false);
 
         if (playerInput.x != 0)
@@ -155,15 +177,17 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = context.ReadValue<Vector2>();
 
-        if (attacking)
-            playerInput *= GameManager.Instance.playerStats.MovePenalization;
-
         if (dashing) return;
 
         animator.SetBool(running, true);
         animator.SetFloat(facing, playerInput.x);
 
-        latestLinearVelocity = body.linearVelocity = GameManager.Instance.playerStats.MoveSpeed * playerInput;
+        /*Vector2 currentVelocity = playerInput;
+
+        if (isSlowed) currentVelocity *= stats.MovePenalization;
+
+        body.linearVelocity = stats.MoveSpeed * currentVelocity;
+        latestLinearVelocity = body.linearVelocity;*/
     }
 
     void OnDash(InputAction.CallbackContext context)
@@ -181,20 +205,25 @@ public class PlayerController : MonoBehaviour
         if (context.canceled)
         {
             cancelAttackCoroutineId = StartCoroutine(CancelAttackCoroutine());
+            resetSpeedCoroutineId = StartCoroutine(ResetSpeedCoroutine());
 
             return;
         }
+
         if (context.performed)
         {
-            if (cancelAttackCoroutineId != null)
-                StopCoroutine(cancelAttackCoroutineId);
+            if (cancelAttackCoroutineId != null) StopCoroutine(cancelAttackCoroutineId);
+            if (resetSpeedCoroutineId != null) StopCoroutine(resetSpeedCoroutineId);
 
-            if (!attacking)
-                body.linearVelocity *= GameManager.Instance.playerStats.MovePenalization;
+            if (!isSlowed)
+            {
+                body.linearVelocity *= stats.MovePenalization;
+            }
 
             attacking = true;
-            audioSource.pitch = Random.Range(minPitch, maxPitch);
+            isSlowed = true;
 
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
             audioSource.PlayOneShot(shootClip);
         }
     }
@@ -203,12 +232,24 @@ public class PlayerController : MonoBehaviour
         LevelManager.Instance.PauseGame();
     }
 
+    IEnumerator ResetSpeedCoroutine()
+    {
+        yield return new WaitForSeconds(stats.MovePenalizationDuration);
+
+        isSlowed = false;
+
+        if (playerInput != Vector2.zero && !dashing)
+        {
+            body.linearVelocity = stats.MoveSpeed * playerInput;
+            latestLinearVelocity = body.linearVelocity;
+        }
+    }
+
     IEnumerator CancelAttackCoroutine()
     {
-        yield return new WaitForSeconds(GameManager.Instance.playerStats.AttackPenalization);
+        yield return new WaitForSeconds(stats.AttackPenalization);
 
         attacking = false;
-        body.linearVelocity = latestLinearVelocity;
     }
 
     IEnumerator DashCoroutine()
@@ -218,17 +259,17 @@ public class PlayerController : MonoBehaviour
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.PlayOneShot(dashClip);
 
-        body.linearVelocity = body.linearVelocity.normalized * GameManager.Instance.playerStats.DashVelocity;
+        body.linearVelocity = body.linearVelocity.normalized * stats.DashVelocity;
 
-        yield return new WaitForSeconds(GameManager.Instance.playerStats.DashDuration);
+        yield return new WaitForSeconds(stats.DashDuration);
 
         dashing = false;
 
-        body.linearVelocity = GameManager.Instance.playerStats.MoveSpeed * playerInput;
+        body.linearVelocity = stats.MoveSpeed * playerInput;
 
         mageHitVFX.EndImmunity();
 
-        yield return new WaitForSeconds(GameManager.Instance.playerStats.DashCooldown);
+        yield return new WaitForSeconds(stats.DashCooldown);
 
         HandleActionEvents(HandleAction.DASH, HandleToggle.ON);
     }
