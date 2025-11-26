@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public enum GameInputMap { UI, Gameplay }
 // Navigation System -- input system -- llevar track de la navegación del previo botón activo -- botón de salida a la derecha
 [RequireComponent(typeof(PlayerStats))]
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(EventSystem))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string uiActionMap = "UI";
     [SerializeField] private string gameplayActionMap = "Gameplay";
     [SerializeField] private string splashActionMap = "Splash";
+    [SerializeField] private InputActionReference navigateAction;
 
     [Header("Audio")]
     [SerializeField] private AudioMixer audioMixer;
@@ -46,15 +49,29 @@ public class GameManager : MonoBehaviour
     private int currentSceneIndex;
     public PlayerStats playerStats;
 
+    private EventSystem eventSystem;
+    private GameObject lastSelected;
+
     void Awake()
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
+    void OnEnable()
+    {
+        navigateAction.action.performed += OnNavigate;
+    }
+
+    void OnDisable()
+    {
+        navigateAction.action.performed -= OnNavigate;
+    }
+
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        eventSystem = GetComponent<EventSystem>();
 
         if (devInitialLevel == -1)
         {
@@ -93,6 +110,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnNavigate(InputAction.CallbackContext context)
+    {
+        if (eventSystem.currentSelectedGameObject == null)
+            eventSystem.SetSelectedGameObject(lastSelected);
+        else
+            lastSelected = eventSystem.currentSelectedGameObject;
+    }
+
     public void PlayUIConfirmSound()
     {
         uiAudioSource.pitch = Random.Range(minPitch, maxPitch);
@@ -119,6 +144,14 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public void SetFirstSelectedElement(GameObject firstElement)
+    {
+        eventSystem.SetSelectedGameObject(firstElement);
+
+        lastSelected = firstElement;
+    }
+
     public void LoadMainMenu()
     {
         playerStats.ResetStats();

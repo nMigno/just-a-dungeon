@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class EnemyChaseController : MonoBehaviour
 {
     [Header("Group settings")]
@@ -32,15 +34,17 @@ public class EnemyChaseController : MonoBehaviour
         startPosition = transform.position;
         timer = wanderTimer;
 
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject.transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
     {
         if (player == null) return;
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
         animator.speed = 1;
+
         animator.SetFloat("Facing", agent.velocity.x);
 
         if (isChasing)
@@ -48,24 +52,16 @@ public class EnemyChaseController : MonoBehaviour
             LookAtPlayer();
 
             if (distanceToPlayer > loseRadius)
-            {
                 StopChasing();
-            }
             else
-            {
                 Chase();
-            }
         }
         else
         {
             if (distanceToPlayer < detectionRadius)
-            {
                 StartChasing();
-            }
             else
-            {
                 Patrol();
-            }
         }
     }
 
@@ -79,22 +75,18 @@ public class EnemyChaseController : MonoBehaviour
         isChasing = false;
 
         timer = wanderTimer;
-        if(agent.isOnNavMesh) agent.SetDestination(startPosition);
+
+        if (agent.isOnNavMesh) agent.SetDestination(startPosition);
     }
 
     void Chase()
     {
         if (!agent.isOnNavMesh) return;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(player.position, out hit, 2.0f, NavMesh.AllAreas))
-        {
+        if (NavMesh.SamplePosition(player.position, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
             agent.SetDestination(hit.position);
-        }
         else
-        {
             agent.SetDestination(player.position);
-        }
     }
 
     void Patrol()
@@ -111,13 +103,9 @@ public class EnemyChaseController : MonoBehaviour
         float directionX = player.position.x - transform.position.x;
 
         if (directionX < 0)
-        {
             spriteRenderer.flipX = true;
-        }
         else if (directionX > 0)
-        {
             spriteRenderer.flipX = false;
-        }
     }
 
     void OnDrawGizmosSelected()
@@ -131,17 +119,15 @@ public class EnemyChaseController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(Application.isPlaying ? startPosition : transform.position, wanderRadius);
     }
+
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector2 randomPoint2D = Random.insideUnitCircle * dist;
-        Vector3 randomDirection = new Vector3(randomPoint2D.x, randomPoint2D.y, 0) + origin;
-        NavMeshHit navHit;
+        Vector3 randomDirection = (Vector3)randomPoint2D + origin;
 
-        if (NavMesh.SamplePosition(randomDirection, out navHit, dist, layermask))
-        {
-            return navHit.position;
-        }
-        return origin;
+        return NavMesh.SamplePosition(randomDirection, out NavMeshHit navHit, dist, layermask)
+            ? navHit.position
+            : origin;
     }
 
 }

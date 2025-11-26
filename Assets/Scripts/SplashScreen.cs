@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class SplashScreen : MonoBehaviour
 {
     [Header("Input Settings")]

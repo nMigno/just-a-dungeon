@@ -277,6 +277,6 @@ public class PlayerController : MonoBehaviour
     public void OnDead()
     {
         enabled = false;
-        body.linearVelocity = new(0f, 0f);
+        body.linearVelocity = Vector2.zero;
     }
 }
