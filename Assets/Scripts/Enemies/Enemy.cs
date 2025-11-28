@@ -4,6 +4,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(EnemyHpManager))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Collider2D))]
 public class Enemy : MonoBehaviour
 {
     [Header("Events")]
@@ -26,6 +30,8 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     private AudioSource audioSource;
+    private SpriteRenderer sprite;
+    private Collider2D collider2d;
 
     void Start()
     {
@@ -34,8 +40,10 @@ public class Enemy : MonoBehaviour
         hpManager = GetComponent<EnemyHpManager>();
         audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
+        sprite = GetComponent<SpriteRenderer>();
+        collider2d = GetComponent<Collider2D>();
 
-        hpManager.onDeath.AddListener(StartDeathSequence);     
+        hpManager.onDeath.AddListener(StartDeathSequence);
     }
 
     void OnDestroy()
@@ -46,13 +54,15 @@ public class Enemy : MonoBehaviour
     void StartDeathSequence()
     {
         if (isDying) return;
+
         isDying = true;
         // Everything below is for reproducing dead sound while mob is dying.
         agent.isStopped = true;
         body.linearVelocity = Vector2.zero;
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Collider2D>().enabled = false;
+        sprite.enabled = false;
+        collider2d.enabled = false;
         agent.enabled = false;
+
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.PlayOneShot(deathClip, 1.5f);
 
@@ -62,7 +72,9 @@ public class Enemy : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         if (isDying) return;
+
         audioSource.pitch = Random.Range(minPitch, maxPitch);
+
         audioSource.PlayOneShot(hitClip, 1.5f);
         hpManager.ReceiveDamage(damage);
         animator.SetBool(isHit, true);
@@ -81,8 +93,7 @@ public class Enemy : MonoBehaviour
     public void DestroyEnemy()
     {
         LevelManager.Instance.OnEnemyDefeated.Invoke();
-        float delay = 0f;
-        delay = deathClip.length;
-        Destroy(gameObject, delay);
+
+        Destroy(gameObject, deathClip.length);
     }
 }

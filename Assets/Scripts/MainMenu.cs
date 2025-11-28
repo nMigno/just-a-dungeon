@@ -10,12 +10,10 @@ public enum SubMenu
 
 public class MainMenu : MonoBehaviour
 {
-    //[Header("Input Settings")]
-    //[SerializeField] private InputActionReference menuActions;
-
     [Header("Main Configuration")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private string firstElementTag = "InitialSelectableUIElement";
 
     [Header("Options Menu")]
     [SerializeField] private GameObject mainOptionsMenu;
@@ -27,10 +25,14 @@ public class MainMenu : MonoBehaviour
     {
         OpenMainMenuPanel();
         OpenSubMenu(null);
+
     }
     public void OpenMainMenuPanel()
     {
         GameManager.Instance.PlayUICancelSound();
+        GameManager.Instance.SetFirstSelectedElement(
+            GameObject.FindGameObjectWithTag(firstElementTag)
+        );
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
@@ -91,13 +93,5 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.Instance.PlayUIConfirmSound();
         GameManager.Instance.StartGame();
-    }
-
-    void Update()
-    {
-        if (Gamepad.current != null && Gamepad.current.IsActuated())
-        {
-            Debug.Log("Xbox Controller is actuated!");
-        }
     }
 }

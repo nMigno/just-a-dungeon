@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.antonysze.custom-play-button": {
-      "version": "file:C:/Users/nickm/Downloads/unity-custom-play-button-main/unity-custom-play-button-main",
+      "version": "https://github.com/antonysze/unity-custom-play-button.git",
       "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "ff2dc1a2a3d2266074f766901c1fc1f95aaf96dd"
     },
     "com.marijnzwemmer.unity-toolbar-extender": {
       "version": "https://github.com/marijnz/unity-toolbar-extender.git",

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.Events;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
