@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyStatsScaler : MonoBehaviour
 {
     [Header("Speed scaling per level")]
-    [SerializeField] private float speedBonusPerLevel = 0.1f;
+    [SerializeField] private float speedBonusPerLevel = 0.08f;
 
     private NavMeshAgent agent;
     private EnemyHpManager hpManager;
@@ -19,9 +19,22 @@ public class EnemyStatsScaler : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         hpManager = GetComponent<EnemyHpManager>();
 
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        int currentSceneIndex = 1;
+        int startSceneIndex = 1;
 
-        if (currentLevel == 0) currentLevel = 1;
+        if (GameManager.Instance != null)
+        {
+            currentSceneIndex = GameManager.Instance.GetCurrentLevelIndex();
+            startSceneIndex = GameManager.Instance.GetFirstLevelIndex();
+        }
+        else
+        {
+            currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            startSceneIndex = currentSceneIndex;
+        }
+
+        int currentLevel = (currentSceneIndex - startSceneIndex) + 1;
+        if (currentLevel < 1) currentLevel = 1;
 
         // Speed scaling logic
         float baseSpeed = agent.speed;

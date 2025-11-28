@@ -73,8 +73,9 @@ public class GameManager : MonoBehaviour
     {
         if (devInitialLevel == -1) return;
 
-        SceneManager.LoadSceneAsync(firstLevelIndex + devInitialLevel - 1, LoadSceneMode.Additive);
-        currentSceneIndex = firstLevelIndex + devInitialLevel;
+        int targetSceneIndex = firstLevelIndex + devInitialLevel - 1;
+        SceneManager.LoadSceneAsync(targetSceneIndex, LoadSceneMode.Additive);
+        currentSceneIndex = targetSceneIndex;
     }
 
     void ToggleSplashKeymap(bool activate)
@@ -163,6 +164,11 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"Current Index = {currentSceneIndex}");
         }
+    }
+
+    public int GetFirstLevelIndex()
+    {
+        return firstLevelIndex;
     }
 
     public int GetCurrentLevelIndex()

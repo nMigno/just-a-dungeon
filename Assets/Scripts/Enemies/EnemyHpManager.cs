@@ -10,7 +10,7 @@ public class EnemyHpManager : MonoBehaviour
 
     public UnityEvent onDeath;
 
-    void Start()
+    void Awake()
     {
         currentHealth = maxHealth;
     }
