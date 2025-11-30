@@ -28,7 +28,7 @@ public class CardPowerUp : MonoBehaviour
 
     private Button button;
 
-    void Start()
+    void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(SelectCard);

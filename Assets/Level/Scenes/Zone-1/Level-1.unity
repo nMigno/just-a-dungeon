@@ -1076,14 +1076,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelController
       objectReference: {fileID: 0}
-    - target: {fileID: 4193525070500467239, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426422130854651486, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5219823205599976161, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1098,10 +1090,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5219823205599976161, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291159576333546842, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5483296583252242291, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
@@ -1142,14 +1130,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483296583252242291, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6156302843763631074, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8223492936906756189, guid: 7d11788003daa3946b1d58f11da8536b, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
