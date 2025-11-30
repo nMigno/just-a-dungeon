@@ -367,6 +367,7 @@ MonoBehaviour:
   playerTag: Player
   bossPortalTag: Boss Portal
   fireballPrefab: {fileID: 168772508720003752, guid: e92061051f0efc8408874991d6beef3a, type: 3}
+  deathVfxPrefab: {fileID: 4123222162493484683, guid: 60d830e3b910fb747989c937f997eb17, type: 3}
   fireballClip: {fileID: 8300000, guid: d7745c861f73d994ab2695b4ae1a655f, type: 3}
   fireBreathClip: {fileID: 8300000, guid: 66926f35a2f46534f83a066498d400d4, type: 3}
   earthquakeClip: {fileID: 8300000, guid: 10e5626435b1f1543913b44d6ec6641b, type: 3}

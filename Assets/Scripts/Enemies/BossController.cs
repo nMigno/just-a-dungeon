@@ -16,6 +16,9 @@ public class BossController : MonoBehaviour
     [SerializeField] private string bossPortalTag = "Boss Portal";
     [SerializeField] private GameObject fireballPrefab;
 
+    [Header("Visual effects")]
+    [SerializeField] private GameObject deathVfxPrefab;
+
     [Header("Sound Effects")]
     [SerializeField] private AudioClip fireballClip;
     [SerializeField] private AudioClip fireBreathClip;
@@ -35,6 +38,7 @@ public class BossController : MonoBehaviour
     private Transform[] teleporters;
     private EnemyHpManager bossHpManager;
     private AudioSource audioSource;
+    private Animator animator;
 
     private int portalIndex = 1;
     private bool isDying = false;
@@ -48,6 +52,8 @@ public class BossController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         bossHpManager = GetComponent<EnemyHpManager>();
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
+
         bossHpManager.onDeath.AddListener(StartDeathSequence);
         mouth = transform.Find(mouthNode);
         playerTransform = GameObject.FindGameObjectWithTag(playerTag).GetComponent<Transform>();
@@ -60,13 +66,11 @@ public class BossController : MonoBehaviour
     void Start()
     {
         portalIndex = CalculateShorterTP();
-    }
 
-    void OnEnable()
-    {
         throwFireballCoroutine = StartCoroutine(ThrowFireball());
         teletransportCoroutine = StartCoroutine(Teletransport());
     }
+
     void OnDisable()
     {
         StopCoroutine(throwFireballCoroutine);
@@ -106,12 +110,17 @@ public class BossController : MonoBehaviour
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.PlayOneShot(hitClip);
         bossHpManager.ReceiveDamage(damage);
+        animator.SetTrigger("Hit");
     }
 
     void StartDeathSequence()
     {
         if (isDying) return;
-        // Everything below is for reproducing dead sound while mob is dying.
+
+        StopCoroutine(throwFireballCoroutine);
+        StopCoroutine(teletransportCoroutine);
+
+        Instantiate(deathVfxPrefab, transform.position, Quaternion.identity);
         body.linearVelocity = Vector2.zero;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
@@ -119,6 +128,7 @@ public class BossController : MonoBehaviour
         audioSource.PlayOneShot(deathClip);
         isDying = true;
 
+        animator.SetTrigger("Die");
         DestroyEnemy();
     }
 

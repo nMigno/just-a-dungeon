@@ -24,6 +24,22 @@ public class GameManager : MonoBehaviour
     [Tooltip("DEV_ONLY. If set, we jump to that level")]
     [SerializeField] private int devInitialLevel = -1;
 
+    [System.Serializable]
+    public struct DevStatsSettings
+    {
+        [Tooltip("0.1 = +10% Move Speed")]
+        public float moveSpeedBonus;
+        [Tooltip("0.1 = +10% Attack Speed")]
+        public float shootCooldownBonus;
+        [Tooltip("0.1 = -10% Dash CD")]
+        public float dashCooldownBonus;
+        [Tooltip("0.1 = +10% Bullet Size")]
+        public float bulletSizeBonus;
+    }
+
+    [Header("Dev Settings")]
+    [SerializeField] private DevStatsSettings devStats;
+
     [Header("Input Action Maps")]
     [SerializeField] private string uiActionMap = "UI";
     [SerializeField] private string gameplayActionMap = "Gameplay";
@@ -82,6 +98,13 @@ public class GameManager : MonoBehaviour
         else
         {
             ActivateActionMap(GameInputMap.UI);
+
+            if (devInitialLevel > 0)
+            {
+                playerStats.SetDevStats(devStats.moveSpeedBonus, devStats.shootCooldownBonus,
+                devStats.dashCooldownBonus, devStats.bulletSizeBonus);
+            }
+
             DEV_LoadLevel();
         }
     }

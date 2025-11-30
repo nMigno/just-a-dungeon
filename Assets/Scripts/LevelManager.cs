@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
+    [SerializeField] private int finalLevelIndex = 23;
     [Header("Tags")]
     [SerializeField] private string enemyTag = "Enemy";
     [SerializeField] private string bossTag = "Boss";
@@ -20,6 +21,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject screenLevelComplete;
     [SerializeField] private GameObject warningMenuPanel;
     [SerializeField] private GameObject screenGameOver;
+    [SerializeField] private GameObject screenGameComplete;
 
     [Header("Pause UI")]
     [SerializeField] private GameObject pauseMenuPanel;
@@ -96,7 +98,17 @@ public class LevelManager : MonoBehaviour
 
         GameManager.Instance.ActivateActionMap(GameInputMap.UI);
         warningMenuPanel.SetActive(false);
-        screenLevelComplete.SetActive(true);
+
+        int currentLevelIndex = GameManager.Instance.GetCurrentLevelIndex();
+        if (currentLevelIndex == finalLevelIndex)
+        {
+            screenGameComplete.SetActive(true);
+        }
+        else
+        {
+            screenLevelComplete.SetActive(true);
+        }
+
         Time.timeScale = 0f;
     }
 

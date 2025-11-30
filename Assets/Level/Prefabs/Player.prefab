@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 1681455178621061713}
   - component: {fileID: 2450407349542409742}
   - component: {fileID: 5963039342677610811}
+  - component: {fileID: 8856045347802443148}
   - component: {fileID: 5870744343173170635}
   m_Layer: 8
   m_Name: Player
@@ -388,6 +389,28 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8856045347802443148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552516324413041329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0f985e139211c4084bb542241b90a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  movePenalization: 0.2
+  movePenalizationDuration: 0.5
+  shootSpeed: 10
+  shootCooldown: 0.8
+  bulletSize: {x: 1, y: 1}
+  attackPenalization: 0.1
+  dashCooldown: 2.5
+  dashDuration: 0.3
+  dashVelocity: 20
 --- !u!82 &5870744343173170635
 AudioSource:
   m_ObjectHideFlags: 0

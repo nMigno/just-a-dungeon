@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private string terrainTag = "Wall";
     [SerializeField] private string fireballTag = "Boss Fireball";
     [SerializeField] private string bossTag = "Boss";
+    [SerializeField] private string playerTag = "Player";
+    [SerializeField] private string bulletTag = "Bullet";
 
     private readonly int bulletDamage = 1;
     private Rigidbody2D body;
@@ -21,6 +23,11 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag(playerTag) || collision.CompareTag(bulletTag))
+        {
+            return;
+        }
+
         if (collision.CompareTag(terrainTag) || collision.CompareTag(fireballTag))
         {
             Destroy(gameObject);

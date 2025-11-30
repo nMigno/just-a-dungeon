@@ -4,15 +4,15 @@ public class PlayerStats : MonoBehaviour
 {
     [Header("Movement Stats")]
     [SerializeField] private float moveSpeed = 6.0f;
-    [SerializeField] private float movePenalization = 0.2f;
-    [SerializeField] private float movePenalizationDuration = 0.5f;
+    [SerializeField] private float movePenalization = 0.5f;
+    [SerializeField] private float movePenalizationDuration = 0.15f;
 
     [Header("Attack Stats")]
     [SerializeField] private float shootSpeed = 10.0f;
     [SerializeField] private float shootCooldown = 0.8f;
     [SerializeField] private Vector2 bulletSize = new(1f, 1f);
     [Tooltip("In seconds")]
-    [SerializeField] private float attackPenalization = 0.1f;
+    [SerializeField] private float attackPenalization = 0.05f;
 
     [Header("Dash Stats")]
     [SerializeField] private float dashCooldown = 2.5f;
@@ -105,5 +105,18 @@ public class PlayerStats : MonoBehaviour
         BulletSizeBonus = 0f;
 
         RecalculateStats();
+    }
+
+    public void SetDevStats(float moveBonus, float shootBonus, float dashBonus, float sizeBonus)
+    {
+        MoveSpeedBonus = moveBonus;
+        ShootCooldownBonus = shootBonus;
+        DashCooldownBonus = dashBonus;
+        BulletSizeBonus = sizeBonus;
+
+        RecalculateStats();
+
+        Debug.LogWarning("DEV MODE: Custom stats applied");
+        Debug.Log($"ASPD: {ShootCooldown} | MSPD: {MoveSpeed} | DashCD: {DashCooldown} | BulletSize: {BulletSize}");
     }
 }

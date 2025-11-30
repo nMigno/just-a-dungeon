@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerHpManager))]
 [RequireComponent(typeof(PlayerController))]
@@ -13,13 +14,17 @@ public class MageHitVFX : MonoBehaviour
     [SerializeField] private string isDeadTrigger = "Is Dead";
     [SerializeField] private string isRunningBool = "Running";
 
-    private Animator animator;
-    private bool immune = false;
+    [Header("Settings")]
+    [SerializeField] private float hitImmunityDuration = 1.0f;
 
+    private Animator animator;
     private PlayerHpManager healthManager;
     private PlayerController playerController;
 
+    private bool hitImmunity = false;
+    private bool dashImmunity = false;
     private bool isDead = false;
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -36,16 +41,36 @@ public class MageHitVFX : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (
-            isDead ||
-            immune ||
-            !(collision.CompareTag(enemyTag) || collision.CompareTag(fireballTag))
-        )
-            return;
+        if (isDead || hitImmunity || dashImmunity) return;
+        if (!(collision.CompareTag(enemyTag) || collision.CompareTag(fireballTag))) return;
 
-        StartImmunity();
+        StartCoroutine(HitImmunity());
+
         healthManager.UpdateCurrentHealth(HealthOperation.Dec);
         animator.SetBool(isHit, true);
+    }
+    void UpdateAnimatorState()
+    {
+        bool finalImmunityState = hitImmunity || dashImmunity;
+        animator.SetBool(isImmune, finalImmunityState);
+    }
+
+    IEnumerator HitImmunity()
+    {
+        hitImmunity = true;
+        UpdateAnimatorState();
+
+        yield return new WaitForSeconds(hitImmunityDuration);
+
+        hitImmunity = false;
+        animator.SetBool(isHit, false);
+        UpdateAnimatorState();
+    }
+
+    public void SetDashImmunity(bool state)
+    {
+        dashImmunity = state;
+        UpdateAnimatorState();
     }
 
     public void HandleDeath()
@@ -53,7 +78,8 @@ public class MageHitVFX : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        immune = true;
+        hitImmunity = false;
+        dashImmunity = false;
 
         animator.SetBool(isHit, false);
         animator.SetBool(isImmune, false);
@@ -61,19 +87,5 @@ public class MageHitVFX : MonoBehaviour
 
         animator.SetTrigger(isDeadTrigger);
         playerController.OnDead();
-    }
-
-    public void StartImmunity()
-    {
-        immune = true;
-        animator.SetBool(isImmune, true);
-    }
-
-    public void EndImmunity()
-    {
-        if (isDead) return;
-
-        immune = false;
-        animator.SetBool(isImmune, false);
     }
 }

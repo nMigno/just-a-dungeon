@@ -13,11 +13,7 @@ public class AnimationManagement : MonoBehaviour
         animator = GetComponent<Animator>();
         mageHit = GetComponentInParent<MageHitVFX>();
     }
-    public void NotifyEndImmunity()
-    {
-        mageHit.EndImmunity();
-    }
-
+    //public void NotifyEndImmunity() { }
     public void EndHitAnimation()
     {
         animator.SetBool(isHit, false);

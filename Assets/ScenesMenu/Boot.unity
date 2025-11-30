@@ -159,7 +159,12 @@ MonoBehaviour:
   creditsIndex: 3
   firstLevelIndex: 4
   lastLevelIndex: 23
-  devInitialLevel: -1
+  devInitialLevel: 20
+  devStats:
+    moveSpeedBonus: 2
+    shootCooldownBonus: 10
+    dashCooldownBonus: 10
+    bulletSizeBonus: 1.5
   uiActionMap: UI
   gameplayActionMap: Gameplay
   splashActionMap: Splash

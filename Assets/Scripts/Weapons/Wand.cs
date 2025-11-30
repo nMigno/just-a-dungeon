@@ -8,8 +8,7 @@ public class Wand : MonoBehaviour
     [Header("Bullet")]
     [SerializeField] private GameObject bulletPrefab;
 
-    private Rigidbody2D pivot;
-    private Rigidbody2D tipBody;
+    private Transform tipTransform;
     private float lastShotTime = -Mathf.Infinity;
 
     private bool shooting = false;
@@ -17,8 +16,7 @@ public class Wand : MonoBehaviour
 
     void Start()
     {
-        pivot = GetComponent<Rigidbody2D>();
-        tipBody = transform.Find("Wand Tip").GetComponentInChildren<Rigidbody2D>();
+        tipTransform = transform.Find("Wand Tip");
     }
 
     void Update()
@@ -31,25 +29,31 @@ public class Wand : MonoBehaviour
         if (!shooting || Time.time < lastShotTime + GameManager.Instance.playerStats.ShootCooldown) return;
 
         // 1. We move the wand
-        float angle = Mathf.Atan2(shootInput.y, shootInput.x) * Mathf.Rad2Deg;
 
-        pivot.MoveRotation(-90 + angle);
+        Vector2 shootDirection = shootInput.normalized;
         // 2. We shoot if CD is up
+
+        if (Math.Abs(shootDirection.y) >= Math.Abs(shootDirection.x))
+        {
+            shootDirection.x = 0;
+            shootDirection.y = Mathf.Sign(shootDirection.y);
+        }
+        else
+        {
+            shootDirection.y = 0;
+            shootDirection.x = Mathf.Sign(shootDirection.x);
+        }
+
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         lastShotTime = Time.time;
-        shootInput = shootInput.normalized;
 
-        if (Math.Abs(shootInput.y) >= Math.Abs(shootInput.x))
-            shootInput.x = 0;
-        else if (Math.Abs(shootInput.x) > Math.Abs(shootInput.y))
-            shootInput.y = 0;
-
-        GameObject bullet = Instantiate(bulletPrefab, tipBody.position, Quaternion.identity);
-
+        GameObject bullet = Instantiate(bulletPrefab, tipTransform.position, Quaternion.identity);
         bullet.transform.localScale = GameManager.Instance.playerStats.BulletSize;
 
         if (bullet.TryGetComponent(out Rigidbody2D rbBullet))
         {
-            rbBullet.linearVelocity = shootInput * GameManager.Instance.playerStats.ShootSpeed;
+            rbBullet.linearVelocity = shootDirection * GameManager.Instance.playerStats.ShootSpeed;
         }
     }
 
@@ -58,7 +62,6 @@ public class Wand : MonoBehaviour
         if (context.canceled)
         {
             shooting = false;
-
             return;
         }
         if (context.performed)

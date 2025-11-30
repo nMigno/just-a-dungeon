@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyStatsScaler : MonoBehaviour
 {
     [Header("Speed scaling per level")]
-    [SerializeField] private float speedBonusPerLevel = 0.08f;
+    [SerializeField] private float speedBonusPerLevel = 0.03f;
 
     private NavMeshAgent agent;
     private EnemyHpManager hpManager;

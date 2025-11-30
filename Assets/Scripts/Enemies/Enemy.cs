@@ -46,6 +46,16 @@ public class Enemy : MonoBehaviour
         hpManager.onDeath.AddListener(StartDeathSequence);
     }
 
+    void Update()
+    {
+        if (isDying) return;
+        if (Mathf.Abs(agent.velocity.x) > 0.1f)
+        {
+            float direction = Mathf.Sign(agent.velocity.x);
+            animator.SetFloat("Facing", direction);
+        }
+    }
+
     void OnDestroy()
     {
         hpManager.onDeath.RemoveListener(StartDeathSequence);
@@ -77,7 +87,7 @@ public class Enemy : MonoBehaviour
 
         audioSource.PlayOneShot(hitClip, 1.5f);
         hpManager.ReceiveDamage(damage);
-        animator.SetBool(isHit, true);
+        animator.SetTrigger("Hit");
     }
 
     public void EnableAI()
