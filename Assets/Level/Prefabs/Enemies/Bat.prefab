@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 6146210082617670919}
   - component: {fileID: 7739790970087104759}
   - component: {fileID: 8410678312831119265}
-  - component: {fileID: 1144635865928319434}
   - component: {fileID: 7102186981911493844}
+  - component: {fileID: 1144635865928319434}
   - component: {fileID: 1466989542504714543}
   m_Layer: 10
   m_Name: Bat
@@ -310,10 +310,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b99bd094fd0d3d48a233b77a934db88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 1
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7102186981911493844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592054603891790904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ac1e4238e91e847b906c65e5fb0b74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedBonusPerLevel: 0.08
 --- !u!114 &1144635865928319434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,19 +343,6 @@ MonoBehaviour:
   loseRadius: 20
   wanderRadius: 5
   wanderTimer: 4
---- !u!114 &7102186981911493844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592054603891790904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ac1e4238e91e847b906c65e5fb0b74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedBonusPerLevel: 0.08
 --- !u!195 &1466989542504714543
 NavMeshAgent:
   m_ObjectHideFlags: 0

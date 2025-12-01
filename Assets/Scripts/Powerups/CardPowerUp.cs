@@ -34,7 +34,7 @@ public class CardPowerUp : MonoBehaviour
         button.onClick.AddListener(SelectCard);
     }
 
-    void SelectCard()
+    public void SelectCard()
     {
         LevelManager.Instance.CardSelect(powerUpType);
     }

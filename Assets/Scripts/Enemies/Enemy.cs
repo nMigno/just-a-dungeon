@@ -68,10 +68,11 @@ public class Enemy : MonoBehaviour
         isDying = true;
         // Everything below is for reproducing dead sound while mob is dying.
         agent.isStopped = true;
+        agent.enabled = false;
         body.linearVelocity = Vector2.zero;
+        body.simulated = false;
         sprite.enabled = false;
         collider2d.enabled = false;
-        agent.enabled = false;
 
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.PlayOneShot(deathClip, 1.5f);

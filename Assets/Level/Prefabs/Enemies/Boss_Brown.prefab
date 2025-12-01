@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 3752822781140829819}
   - component: {fileID: 2168439291256181794}
   - component: {fileID: 8752027396403688576}
+  - component: {fileID: 7594296825772761288}
   - component: {fileID: 4819563625589741181}
   - component: {fileID: 2858271682172750709}
   - component: {fileID: 298947088289267304}
-  - component: {fileID: 7594296825772761288}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Boss_Brown
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -190,64 +190,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4819563625589741181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839418327468215869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 630fb90b52dda6444a8571776bf35a68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouthNode: Mouth
-  playerTag: Player
-  bossPortalTag: Boss Portal
-  fireballPrefab: {fileID: 168772508720003752, guid: e92061051f0efc8408874991d6beef3a, type: 3}
-  deathVfxPrefab: {fileID: 7533066092704084932, guid: 35131d54c65293b4382326fe012aca29, type: 3}
-  fireballClip: {fileID: 8300000, guid: d7745c861f73d994ab2695b4ae1a655f, type: 3}
-  fireBreathClip: {fileID: 8300000, guid: 66926f35a2f46534f83a066498d400d4, type: 3}
-  earthquakeClip: {fileID: 8300000, guid: 10e5626435b1f1543913b44d6ec6641b, type: 3}
-  teleportClip: {fileID: 8300000, guid: ae6a1cd969e390e46a2678acd7ffd5f4, type: 3}
-  hitClip: {fileID: 8300000, guid: 20e0628604362bc4aab9289c725c1d12, type: 3}
-  deathClip: {fileID: 8300000, guid: 6f7d414c31b693947baf9b3b128b99d7, type: 3}
-  minPitch: 0.7
-  maxPitch: 1.3
---- !u!114 &2858271682172750709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839418327468215869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e311d6a2beccdd64facbed3bc7ce8eb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireballSpeed: 10
-  fireballCD: 3
-  teletransportCD: 5
-  velocityPenalization: 0.015
-  cdPenalization: 0.005
---- !u!114 &298947088289267304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839418327468215869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b99bd094fd0d3d48a233b77a934db88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 30
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!82 &7594296825772761288
 AudioSource:
   m_ObjectHideFlags: 0
@@ -345,6 +287,64 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4819563625589741181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839418327468215869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630fb90b52dda6444a8571776bf35a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouthNode: Mouth
+  playerTag: Player
+  bossPortalTag: Boss Portal
+  fireballPrefab: {fileID: 168772508720003752, guid: e92061051f0efc8408874991d6beef3a, type: 3}
+  deathVfxPrefab: {fileID: 7533066092704084932, guid: 35131d54c65293b4382326fe012aca29, type: 3}
+  fireballClip: {fileID: 8300000, guid: d7745c861f73d994ab2695b4ae1a655f, type: 3}
+  fireBreathClip: {fileID: 8300000, guid: 66926f35a2f46534f83a066498d400d4, type: 3}
+  earthquakeClip: {fileID: 8300000, guid: 10e5626435b1f1543913b44d6ec6641b, type: 3}
+  teleportClip: {fileID: 8300000, guid: ae6a1cd969e390e46a2678acd7ffd5f4, type: 3}
+  hitClip: {fileID: 8300000, guid: 20e0628604362bc4aab9289c725c1d12, type: 3}
+  deathClip: {fileID: 8300000, guid: 6f7d414c31b693947baf9b3b128b99d7, type: 3}
+  minPitch: 0.7
+  maxPitch: 1.3
+--- !u!114 &2858271682172750709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839418327468215869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e311d6a2beccdd64facbed3bc7ce8eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballSpeed: 10
+  fireballCD: 3
+  teletransportCD: 5
+  velocityPenalization: 0.015
+  cdPenalization: 0.005
+--- !u!114 &298947088289267304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839418327468215869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b99bd094fd0d3d48a233b77a934db88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6548708160953527228
 GameObject:
   m_ObjectHideFlags: 0

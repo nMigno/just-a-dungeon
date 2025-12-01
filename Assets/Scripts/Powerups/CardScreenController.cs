@@ -29,8 +29,6 @@ public class CardScreenController : MonoBehaviour
 
         cardRender2.gameObject.SetActive(true);
         cardRender2.SetupCard(shuffledCards[1]);
-
-        GameManager.Instance.SetFirstSelectedElement(cardRender1.gameObject);
     }
 
     public void HideCardSelection()

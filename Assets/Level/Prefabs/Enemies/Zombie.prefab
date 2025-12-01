@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 7543286094768095665}
   - component: {fileID: 5012267696533704642}
   - component: {fileID: 6681329969256304044}
-  - component: {fileID: -7451301726255294729}
   - component: {fileID: 7313405077741155747}
   - component: {fileID: 4300508385356846541}
+  - component: {fileID: -7451301726255294729}
   - component: {fileID: 2304475938007994866}
   m_Layer: 10
   m_Name: Zombie
@@ -298,22 +298,6 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: 9d360950e9dc2eb498d1dfecb837866b, type: 3}
   minPitch: 0.9
   maxPitch: 1.1
---- !u!114 &-7451301726255294729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218508955566157647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70f0b534693069c44bc368a1b4deca5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionRadius: 15
-  loseRadius: 20
-  wanderRadius: 5
-  wanderTimer: 4
 --- !u!114 &7313405077741155747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b99bd094fd0d3d48a233b77a934db88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 2
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -343,6 +327,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedBonusPerLevel: 0.1
+--- !u!114 &-7451301726255294729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218508955566157647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f0b534693069c44bc368a1b4deca5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 15
+  loseRadius: 20
+  wanderRadius: 5
+  wanderTimer: 4
 --- !u!195 &2304475938007994866
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -162,7 +162,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4473345187508639154}
+  m_Father: {fileID: 1695147636886704844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -181,8 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefe3cfcff79e2a419fb2bc167dfb811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftCardImage: {fileID: 0}
-  rightCardImage: {fileID: 0}
   cardScreenPanel: {fileID: 2450673601629990077}
   cardRender1: {fileID: 8546419197976327747}
   cardRender2: {fileID: 5792549839040165484}
@@ -352,7 +350,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1695147636886704844}
-  - {fileID: 3932859055250105684}
   m_Father: {fileID: 6870198171700576422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -454,6 +451,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3932859055250105684}
   - {fileID: 2404447662296110410}
   - {fileID: 1072931878598945204}
   m_Father: {fileID: 4473345187508639154}

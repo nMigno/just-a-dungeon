@@ -45,9 +45,9 @@ GameObject:
   - component: {fileID: 2168439291256181794}
   - component: {fileID: 8752027396403688576}
   - component: {fileID: 8987741417002821980}
+  - component: {fileID: 8072704600546819719}
   - component: {fileID: 6161479142998851361}
   - component: {fileID: 4270626160114055960}
-  - component: {fileID: 8072704600546819719}
   m_Layer: 0
   m_Name: Boss_Green
   m_TagString: Boss
@@ -318,6 +318,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8072704600546819719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839418327468215869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630fb90b52dda6444a8571776bf35a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouthNode: Mouth
+  playerTag: Player
+  bossPortalTag: Boss Portal
+  fireballPrefab: {fileID: 168772508720003752, guid: e92061051f0efc8408874991d6beef3a, type: 3}
+  deathVfxPrefab: {fileID: 4123222162493484683, guid: 60d830e3b910fb747989c937f997eb17, type: 3}
+  fireballClip: {fileID: 8300000, guid: d7745c861f73d994ab2695b4ae1a655f, type: 3}
+  fireBreathClip: {fileID: 8300000, guid: 66926f35a2f46534f83a066498d400d4, type: 3}
+  earthquakeClip: {fileID: 8300000, guid: 10e5626435b1f1543913b44d6ec6641b, type: 3}
+  teleportClip: {fileID: 8300000, guid: ae6a1cd969e390e46a2678acd7ffd5f4, type: 3}
+  hitClip: {fileID: 8300000, guid: 20e0628604362bc4aab9289c725c1d12, type: 3}
+  deathClip: {fileID: 8300000, guid: 6f7d414c31b693947baf9b3b128b99d7, type: 3}
+  minPitch: 0.7
+  maxPitch: 1.3
 --- !u!114 &6161479142998851361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,28 +376,3 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8072704600546819719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839418327468215869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 630fb90b52dda6444a8571776bf35a68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouthNode: Mouth
-  playerTag: Player
-  bossPortalTag: Boss Portal
-  fireballPrefab: {fileID: 168772508720003752, guid: e92061051f0efc8408874991d6beef3a, type: 3}
-  deathVfxPrefab: {fileID: 4123222162493484683, guid: 60d830e3b910fb747989c937f997eb17, type: 3}
-  fireballClip: {fileID: 8300000, guid: d7745c861f73d994ab2695b4ae1a655f, type: 3}
-  fireBreathClip: {fileID: 8300000, guid: 66926f35a2f46534f83a066498d400d4, type: 3}
-  earthquakeClip: {fileID: 8300000, guid: 10e5626435b1f1543913b44d6ec6641b, type: 3}
-  teleportClip: {fileID: 8300000, guid: ae6a1cd969e390e46a2678acd7ffd5f4, type: 3}
-  hitClip: {fileID: 8300000, guid: 20e0628604362bc4aab9289c725c1d12, type: 3}
-  deathClip: {fileID: 8300000, guid: 6f7d414c31b693947baf9b3b128b99d7, type: 3}
-  minPitch: 0.7
-  maxPitch: 1.3

@@ -91,6 +91,8 @@ public class EnemyChaseController : MonoBehaviour
 
     void Patrol()
     {
+        if (!agent.isOnNavMesh || !agent.isActiveAndEnabled) return;
+
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.5f)
         {
             Vector3 newPos = RandomNavSphere(startPosition, wanderRadius, -1);

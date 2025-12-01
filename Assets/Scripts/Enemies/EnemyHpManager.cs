@@ -4,7 +4,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(EnemyHpManager))]
 public class EnemyHpManager : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int maxHealth = 2;
 
     private int currentHealth;
 
