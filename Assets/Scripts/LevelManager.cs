@@ -106,6 +106,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            hudCanvas.SetActive(false);
             screenLevelComplete.SetActive(true);
         }
 
@@ -139,6 +140,7 @@ public class LevelManager : MonoBehaviour
 
     public void ActivateGameOver()
     {
+        hudCanvas.SetActive(false);
         screenGameOver.SetActive(true);
         Time.timeScale = 0f;
         GameManager.Instance.ActivateActionMap(GameInputMap.UI);
