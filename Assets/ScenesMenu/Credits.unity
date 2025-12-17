@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Luciano Graziani\nIv\xE1n Kraisman\nNicol\xE1s Mingorance"
+  m_text: "Luciano Graziani\nNicol\xE1s Mingorance"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: de03e1376b88c8a4db74e3400457950d, type: 2}
   m_sharedMaterial: {fileID: 2370695034948875953, guid: de03e1376b88c8a4db74e3400457950d, type: 2}
